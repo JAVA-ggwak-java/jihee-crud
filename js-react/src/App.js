@@ -27,14 +27,6 @@ function App() {
         setTextInput(event.target.value);
     };
 
-    const toggleTodo = id => {
-        setTodos(
-            todos.map(todo =>
-                todo.id === id ? {...todo, completed: !todo.completed} : todo
-            )
-        );
-    };
-
     const [editingTodoId, setEditingTodoId] = useState(null);
     const [editDateInput, setEditDateInput] = useState('');
     const [editTextInput, setEditTextInput] = useState('');
@@ -106,14 +98,14 @@ function App() {
         <div className="App">
             <div className="input-section">
                 <form onSubmit={handleFormSubmit}>
-                    <input type="date" value={dateInput} onChange={handleDateChange} />
-                    <input type="text" value={textInput} onChange={handleTextChange} />
+                    <input type="date" value={dateInput} onChange={handleDateChange}/>
+                    <input type="text" value={textInput} onChange={handleTextChange}/>
                     <button type="submit">Add Todo</button>
                 </form>
                 {editingTodoId && (
                     <form onSubmit={handleEditFormSubmit}>
-                        <input type="date" value={editDateInput} onChange={handleEditDateChange} />
-                        <input type="text" value={editTextInput} onChange={handleEditTextChange} />
+                        <input type="date" value={editDateInput} onChange={handleEditDateChange}/>
+                        <input type="text" value={editTextInput} onChange={handleEditTextChange}/>
                         <button type="submit">Update Todo</button>
                     </form>
                 )}
@@ -125,20 +117,10 @@ function App() {
                     {todos.map(todo => (
                         <tr key={todo.id}>
                             <td>
-                                    <span
-                                        style={todo.completed ? {textDecoration: 'line-through'} : null}
-                                        onClick={() => toggleTodo(todo.id)}
-                                    >
-                                    {todo.date}
-                                    </span>
+                                {todo.date}
                             </td>
                             <td>
-                                    <span
-                                        style={todo.completed ? {textDecoration: 'line-through'} : null}
-                                        onClick={() => toggleTodo(todo.id)}
-                                    >
-                                    {todo.text}
-                                    </span>
+                                {todo.text}
                             </td>
                             <td>
                                 <button onClick={() => editTodo(todo.id)}>Edit</button>
