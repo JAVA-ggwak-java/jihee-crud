@@ -52,6 +52,12 @@ input {
     background-color: rgba(0, 200, 0, 0.7);
 }
 
+.snackbar.edit {
+    /* 정보 Snackbar 스타일 */
+    background-color: rgba(100, 100, 255, 0.7);
+}
+
+
 .snackbar.error {
     /* 실패 Snackbar 스타일 */
     background-color: rgba(255, 0, 0, 0.7);

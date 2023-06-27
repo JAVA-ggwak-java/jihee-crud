@@ -56,7 +56,15 @@ function App() {
     const handleEditFormSubmit = event => {
         event.preventDefault();
         updateTodo(editingTodoId, editDateInput, editTextInput);
+        if (snackbarTimeoutId.current) {
+            clearTimeout(snackbarTimeoutId.current);
+        }
+        setShowSnackbar('edit');
+        snackbarTimeoutId.current = setTimeout(() => {
+            setShowSnackbar('');
+        }, 2500);
     };
+
 
     const deleteTodo = id => {
         setTodos(todos.filter(todo => todo.id !== id));
@@ -94,6 +102,8 @@ function App() {
         }, 2500);
     };
 
+
+
     return (
         <div className="App">
             <div className="input-section">
@@ -109,8 +119,10 @@ function App() {
                         <button type="submit">Update Todo</button>
                     </form>
                 )}
+                {showSnackbar === 'success' && <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
+                {showSnackbar === 'edit' && <div className={`snackbar edit ${showSnackbar ? 'show' : ''}`}>항목을 편집했어요!</div>}
                 {showSnackbar === 'error' && <div className={`snackbar error ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
-                {showSnackbar === 'success' && <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목이 성공적으로 추가되었습니다!</div>}
+
             </div>
             <div className="list-section">
                 <table>
