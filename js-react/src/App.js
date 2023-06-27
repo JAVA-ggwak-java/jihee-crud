@@ -35,6 +35,37 @@ function App() {
         );
     };
 
+    const [editingTodoId, setEditingTodoId] = useState(null);
+    const [editDateInput, setEditDateInput] = useState('');
+    const [editTextInput, setEditTextInput] = useState('');
+
+    const handleEditDateChange = event => {
+        setEditDateInput(event.target.value);
+    };
+
+    const handleEditTextChange = event => {
+        setEditTextInput(event.target.value);
+    };
+
+    const editTodo = id => {
+        const todoToEdit = todos.find(todo => todo.id === id);
+        setEditDateInput(todoToEdit.date);
+        setEditTextInput(todoToEdit.text);
+        setEditingTodoId(id);
+    };
+
+    const updateTodo = (id, date, text) => {
+        setTodos(todos.map(todo =>
+            todo.id === id ? {...todo, date, text} : todo
+        ));
+        setEditingTodoId(null);
+    };
+
+    const handleEditFormSubmit = event => {
+        event.preventDefault();
+        updateTodo(editingTodoId, editDateInput, editTextInput);
+    };
+
     const deleteTodo = id => {
         setTodos(todos.filter(todo => todo.id !== id));
     };
@@ -73,25 +104,53 @@ function App() {
 
     return (
         <div className="App">
-            <form onSubmit={handleFormSubmit}>
-                <input type="date" value={dateInput} onChange={handleDateChange} />
-                <input type="text" value={textInput} onChange={handleTextChange} />
-                <button type="submit">Add Todo</button>
-            </form>
-            <ul>
-                {todos.map(todo => (
-                    <li key={todo.id}>
-            <span
-                style={todo.completed ? {textDecoration: 'line-through'} : null}
-                onClick={() => toggleTodo(todo.id)}
-            >
-              {todo.date}: {todo.text}
-            </span>
-                        <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-            {showSnackbar && <div className={`snackbar ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+            <div className="input-section">
+                <form onSubmit={handleFormSubmit}>
+                    <input type="date" value={dateInput} onChange={handleDateChange} />
+                    <input type="text" value={textInput} onChange={handleTextChange} />
+                    <button type="submit">Add Todo</button>
+                </form>
+                {editingTodoId && (
+                    <form onSubmit={handleEditFormSubmit}>
+                        <input type="date" value={editDateInput} onChange={handleEditDateChange} />
+                        <input type="text" value={editTextInput} onChange={handleEditTextChange} />
+                        <button type="submit">Update Todo</button>
+                    </form>
+                )}
+                {showSnackbar && <div className={`snackbar ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+            </div>
+            <div className="list-section">
+                <table>
+                    <tbody>
+                    {todos.map(todo => (
+                        <tr key={todo.id}>
+                            <td>
+                                    <span
+                                        style={todo.completed ? {textDecoration: 'line-through'} : null}
+                                        onClick={() => toggleTodo(todo.id)}
+                                    >
+                                    {todo.date}
+                                    </span>
+                            </td>
+                            <td>
+                                    <span
+                                        style={todo.completed ? {textDecoration: 'line-through'} : null}
+                                        onClick={() => toggleTodo(todo.id)}
+                                    >
+                                    {todo.text}
+                                    </span>
+                            </td>
+                            <td>
+                                <button onClick={() => editTodo(todo.id)}>Edit</button>
+                            </td>
+                            <td>
+                                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

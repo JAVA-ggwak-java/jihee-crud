@@ -8,3 +8,16 @@ button {
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;          /* Standard syntax */
 }
+
+ul
+{
+    list-style-type: none;
+}
+
+.input-section {
+    border: gold 300px;
+}
+
+.list-section {
+    background: lightsalmon;
+}
