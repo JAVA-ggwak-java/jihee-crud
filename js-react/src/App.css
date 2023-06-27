@@ -4,16 +4,16 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    gap: 20px;
+    gap: 1.25em;
 }
 
 form {
     display: flex;
-    gap: 10px;
+    gap: 0.625em;
 }
 
 input {
-    margin-right: 10px;
+    margin-right: 0.625em;
 }
 
 .todo-list {
@@ -22,11 +22,11 @@ input {
 
 .snackbar {
     position: fixed;
-    right: 20px;
-    top: 20px;
-    padding: 10px;
+    right: 1.25em;
+    top: 1.25em;
+    padding: 0.625em;
     color: white;
-    border-radius: 10px;
+    border-radius: 0.625em;
     opacity: 0; /* 처음에는 스낵바를 투명하게 합니다. */
     visibility: hidden; /* 처음에는 스낵바를 보이지 않게 합니다. */
     transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
@@ -34,10 +34,10 @@ input {
 
 @keyframes slideIn {
     from {
-        right: -200px;
+        right: -12.5em;
     }
     to {
-        right: 20px;
+        right: 1.25em;
     }
 }
 
@@ -56,5 +56,3 @@ input {
     /* 실패 Snackbar 스타일 */
     background-color: rgba(255, 0, 0, 0.7);
 }
-
-
