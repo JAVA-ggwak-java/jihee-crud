@@ -26,16 +26,35 @@ input {
     top: 20px;
     padding: 10px;
     color: white;
-    background-color: rgba(255, 0, 0, 0.7);
     border-radius: 10px;
     opacity: 0; /* 처음에는 스낵바를 투명하게 합니다. */
     visibility: hidden; /* 처음에는 스낵바를 보이지 않게 합니다. */
     transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
 }
 
+@keyframes slideIn {
+    from {
+        right: -200px;
+    }
+    to {
+        right: 20px;
+    }
+}
+
 .snackbar.show {
-    opacity: 1; /* 스낵바를 불투명하게 만듭니다. */
-    visibility: visible; /* 스낵바를 보이게 만듭니다. */
+    animation: slideIn 0.5s forwards;
+    opacity: 1;
+    visibility: visible;
+}
+
+.snackbar.success {
+    /* 성공 Snackbar 스타일 */
+    background-color: rgba(0, 200, 0, 0.7);
+}
+
+.snackbar.error {
+    /* 실패 Snackbar 스타일 */
+    background-color: rgba(255, 0, 0, 0.7);
 }
 
 

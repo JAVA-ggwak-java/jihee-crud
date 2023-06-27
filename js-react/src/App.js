@@ -62,7 +62,7 @@ function App() {
         setTodos(todos.filter(todo => todo.id !== id));
     };
 
-    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [showSnackbar, setShowSnackbar] = useState('');
     const snackbarTimeoutId = useRef(null);
 
     useEffect(() => {
@@ -82,16 +82,16 @@ function App() {
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
             }
-            setShowSnackbar(false);
+            setShowSnackbar('success');
         } else {
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
             }
-            setShowSnackbar(true);
-            snackbarTimeoutId.current = setTimeout(() => {
-                setShowSnackbar(false);
-            }, 2500);
+            setShowSnackbar('error');
         }
+        snackbarTimeoutId.current = setTimeout(() => {
+            setShowSnackbar('');
+        }, 2500);
     };
 
     return (
@@ -109,7 +109,8 @@ function App() {
                         <button type="submit">Update Todo</button>
                     </form>
                 )}
-                {showSnackbar && <div className={`snackbar ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+                {showSnackbar === 'error' && <div className={`snackbar error ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+                {showSnackbar === 'success' && <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목이 성공적으로 추가되었습니다!</div>}
             </div>
             <div className="list-section">
                 <table>
