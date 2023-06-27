@@ -2,18 +2,18 @@ import './App.css';
 import React, {useState, useEffect, useRef} from 'react';
 
 function App() {
-    const [todos, setTodos] = useState([]);
+    const [diaries, setDiaries] = useState([]);
 
-    const createTodo = (date, text) => ({
+    const createDiary = (date, text) => ({
         id: Date.now(),
         date,
         text,
         completed: false,
     });
 
-    const addTodo = (date, text) => {
-        const newTodo = createTodo(date, text);
-        setTodos([...todos, newTodo]);
+    const addDiary = (date, text) => {
+        const newDiary = createDiary(date, text);
+        setDiaries([...diaries, newDiary]);
     };
 
     const [dateInput, setDateInput] = useState('');
@@ -27,7 +27,7 @@ function App() {
         setTextInput(event.target.value);
     };
 
-    const [editingTodoId, setEditingTodoId] = useState(null);
+    const [editingDiaryId, setEditingDiaryId] = useState(null);
     const [editDateInput, setEditDateInput] = useState('');
     const [editTextInput, setEditTextInput] = useState('');
 
@@ -39,23 +39,23 @@ function App() {
         setEditTextInput(event.target.value);
     };
 
-    const editTodo = id => {
-        const todoToEdit = todos.find(todo => todo.id === id);
-        setEditDateInput(todoToEdit.date);
-        setEditTextInput(todoToEdit.text);
-        setEditingTodoId(id);
+    const editDiary = id => {
+        const diaryToEdit = diaries.find(diary => diary.id === id);
+        setEditDateInput(diaryToEdit.date);
+        setEditTextInput(diaryToEdit.text);
+        setEditingDiaryId(id);
     };
 
-    const updateTodo = (id, date, text) => {
-        setTodos(todos.map(todo =>
-            todo.id === id ? {...todo, date, text} : todo
+    const updateDiary = (id, date, text) => {
+        setDiaries(diaries.map(diary =>
+            diary.id === id ? {...diary, date, text} : diary
         ));
-        setEditingTodoId(null);
+        setEditingDiaryId(null);
     };
 
     const handleEditFormSubmit = event => {
         event.preventDefault();
-        updateTodo(editingTodoId, editDateInput, editTextInput);
+        updateDiary(editingDiaryId, editDateInput, editTextInput);
         if (snackbarTimeoutId.current) {
             clearTimeout(snackbarTimeoutId.current);
         }
@@ -66,8 +66,8 @@ function App() {
     };
 
 
-    const deleteTodo = id => {
-        setTodos(todos.filter(todo => todo.id !== id));
+    const deleteDiary = id => {
+        setDiaries(diaries.filter(diary => diary.id !== id));
     };
 
     const [showSnackbar, setShowSnackbar] = useState('');
@@ -84,7 +84,7 @@ function App() {
     const handleFormSubmit = event => {
         event.preventDefault();
         if (dateInput && textInput) {
-            addTodo(dateInput, textInput);
+            addDiary(dateInput, textInput);
             setDateInput('');
             setTextInput('');
             if (snackbarTimeoutId.current) {
@@ -110,13 +110,13 @@ function App() {
                 <form onSubmit={handleFormSubmit}>
                     <input type="date" value={dateInput} onChange={handleDateChange}/>
                     <input type="text" value={textInput} onChange={handleTextChange}/>
-                    <button type="submit">Add Todo</button>
+                    <button type="submit">완료</button>
                 </form>
-                {editingTodoId && (
+                {editingDiaryId && (
                     <form onSubmit={handleEditFormSubmit}>
                         <input type="date" value={editDateInput} onChange={handleEditDateChange}/>
                         <input type="text" value={editTextInput} onChange={handleEditTextChange}/>
-                        <button type="submit">Update Todo</button>
+                        <button type="submit">수정</button>
                     </form>
                 )}
                 {showSnackbar === 'success' && <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
@@ -127,19 +127,19 @@ function App() {
             <div className="list-section">
                 <table>
                     <tbody>
-                    {todos.map(todo => (
-                        <tr key={todo.id}>
+                    {diaries.map(diary => (
+                        <tr key={diary.id}>
                             <td>
-                                {todo.date}
+                                {diary.date}
                             </td>
                             <td>
-                                {todo.text}
+                                {diary.text}
                             </td>
                             <td>
-                                <button onClick={() => editTodo(todo.id)}>Edit</button>
+                                <button onClick={() => editDiary(diary.id)}>수정</button>
                             </td>
                             <td>
-                                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                                <button onClick={() => deleteDiary(diary.id)}>삭제</button>
                             </td>
                         </tr>
                     ))}
