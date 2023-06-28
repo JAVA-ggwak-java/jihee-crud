@@ -88,7 +88,7 @@ function App() {
         event.preventDefault();
         if (dateInput && textInput) {
             addDiary(dateInput, textInput);
-            setDateInput('');
+            setDateInput(dateToday);
             setTextInput('');
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
