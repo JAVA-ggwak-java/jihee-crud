@@ -16,7 +16,10 @@ function App() {
         setDiaries([...diaries, newDiary]);
     };
 
-    const [dateInput, setDateInput] = useState('');
+    const today = new Date(); // YYYY-MM-DD 형식을 padStart() 로 맞추자!
+    const dateToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+    const [dateInput, setDateInput] = useState(dateToday);
     const [textInput, setTextInput] = useState('');
 
     const handleDateChange = event => {
