@@ -125,26 +125,18 @@ function App() {
 
             </div>
             <div className="list-section">
-                <table>
-                    <tbody>
+                <div className="list-section">
                     {diaries.map(diary => (
-                        <tr key={diary.id}>
-                            <td>
-                                {diary.date}
-                            </td>
-                            <td>
-                                {diary.text}
-                            </td>
-                            <td>
+                        <div key={diary.id} className="diary-item">
+                            <div className="diary-date">{diary.date}</div>
+                            <div className="diary-text">{diary.text}</div>
+                            <div className="diary-action">
                                 <button onClick={() => editDiary(diary.id)}>수정</button>
-                            </td>
-                            <td>
                                 <button onClick={() => deleteDiary(diary.id)}>삭제</button>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                     ))}
-                    </tbody>
-                </table>
+                </div>
             </div>
         </div>
     );

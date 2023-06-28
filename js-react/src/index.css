@@ -9,10 +9,30 @@ button {
     user-select: none;          /* Standard syntax */
 }
 
-ul
-{
+ul {
     list-style-type: none;
 }
+
+.diary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.diary-date {
+    flex: 0.5;
+}
+
+.diary-text {
+    flex: 3;
+}
+
+.diary-action {
+    flex: 0.5;
+    display: flex;
+    justify-content: space-around;
+}
+
 
 
 .input-section {
@@ -22,4 +42,5 @@ ul
 
 .list-section {
     background: lightsalmon;
+    width: 80vw;
 }
