@@ -109,6 +109,9 @@ function App() {
 
     return (
         <div className="App">
+            <div>
+                <h1>오늘의 한 마디</h1>
+            </div>
             <div className="input-section">
                 <form onSubmit={handleFormSubmit}>
                     <input type="date" value={dateInput} onChange={handleDateChange}/>
@@ -123,7 +126,7 @@ function App() {
                     </form>
                 )}
                 {showSnackbar === 'success' && <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
-                {showSnackbar === 'edit' && <div className={`snackbar edit ${showSnackbar ? 'show' : ''}`}>항목을 편집했어요!</div>}
+                {showSnackbar === 'edit' && <div className={`snackbar edit ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
                 {showSnackbar === 'error' && <div className={`snackbar error ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
 
             </div>
