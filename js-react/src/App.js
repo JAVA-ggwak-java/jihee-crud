@@ -8,7 +8,6 @@ function App() {
         id: Date.now(),
         date,
         text,
-        completed: false,
     });
 
     const addDiary = (date, text) => {
@@ -47,6 +46,10 @@ function App() {
         setEditDateInput(diaryToEdit.date);
         setEditTextInput(diaryToEdit.text);
         setEditingDiaryId(id);
+    };
+
+    const cancelEditing = () => {
+        setEditingDiaryId(null);
     };
 
     const updateDiary = (id, date, text) => {
@@ -106,43 +109,49 @@ function App() {
     };
 
 
-
     return (
         <div className="App">
             <div>
                 <h1>오늘의 한 마디</h1>
             </div>
             <div className="input-section">
-                <form onSubmit={handleFormSubmit}>
+                <form className="input-form" onSubmit={handleFormSubmit}>
                     <input type="date" value={dateInput} onChange={handleDateChange}/>
                     <input type="text" value={textInput} onChange={handleTextChange}/>
                     <button type="submit">완료</button>
                 </form>
-                {editingDiaryId && (
-                    <form onSubmit={handleEditFormSubmit}>
-                        <input type="date" value={editDateInput} onChange={handleEditDateChange}/>
-                        <input type="text" value={editTextInput} onChange={handleEditTextChange}/>
-                        <button type="submit">수정</button>
-                    </form>
-                )}
-                {showSnackbar === 'success' && <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
-                {showSnackbar === 'edit' && <div className={`snackbar edit ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
-                {showSnackbar === 'error' && <div className={`snackbar error ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+                {showSnackbar === 'success' &&
+                    <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
+                {showSnackbar === 'edit' &&
+                    <div className={`snackbar edit ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
+                {showSnackbar === 'error' &&
+                    <div className={`snackbar error ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
 
             </div>
             <div className="list-section">
-                <div className="list-section">
-                    {diaries.map(diary => (
-                        <div key={diary.id} className="diary-item">
-                            <div className="diary-date">{diary.date}</div>
-                            <div className="diary-text">{diary.text}</div>
-                            <div className="diary-action">
-                                <button onClick={() => editDiary(diary.id)}>수정</button>
-                                <button onClick={() => deleteDiary(diary.id)}>삭제</button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                {diaries.map(diary => (
+                    <div key={diary.id} className="diary-item">
+                        {editingDiaryId === diary.id ? (
+                            <form className="edit-form" onSubmit={handleEditFormSubmit}>
+                                <input type="date" value={editDateInput} onChange={handleEditDateChange}/>
+                                <input type="text" value={editTextInput} onChange={handleEditTextChange}/>
+                                <div className="diary-action">
+                                    <button type="submit">저장</button>
+                                    <button type="button" onClick={cancelEditing}>취소</button>
+                                </div>
+                            </form>
+                        ) : (
+                            <>
+                                <div className="diary-date">{diary.date}</div>
+                                <div className="diary-text">{diary.text}</div>
+                                <div className="diary-action">
+                                    <button onClick={() => editDiary(diary.id)}>수정</button>
+                                    <button onClick={() => deleteDiary(diary.id)}>삭제</button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                ))}
             </div>
         </div>
     );

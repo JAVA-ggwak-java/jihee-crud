@@ -33,10 +33,9 @@ ul {
 .diary-action {
     flex: 0.5;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+
 }
-
-
 
 .input-section {
     border: gold 300px;
@@ -47,3 +46,9 @@ ul {
     background: lightsalmon;
     width: 80vw;
 }
+
+.edit-form {
+    display: flex;
+    width: 100%;
+}
+
