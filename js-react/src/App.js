@@ -116,8 +116,8 @@ function App() {
             </div>
             <div className="input-section">
                 <form className="input-form" onSubmit={handleFormSubmit}>
-                    <input type="date" value={dateInput} onChange={handleDateChange}/>
-                    <input type="text" value={textInput} onChange={handleTextChange}/>
+                    <input placeholder={'Enter date'} type="date" value={dateInput} onChange={handleDateChange}/>
+                    <input placeholder={'Enter text'} type="text" value={textInput} onChange={handleTextChange}/>
                     <button type="submit">완료</button>
                 </form>
                 {showSnackbar === 'success' &&
@@ -133,8 +133,10 @@ function App() {
                     <div key={diary.id} className="diary-item">
                         {editingDiaryId === diary.id ? (
                             <form className="edit-form" onSubmit={handleEditFormSubmit}>
+                                <div>
                                 <input type="date" value={editDateInput} onChange={handleEditDateChange}/>
                                 <input type="text" value={editTextInput} onChange={handleEditTextChange}/>
+                                </div>
                                 <div className="diary-action">
                                     <button type="submit">저장</button>
                                     <button type="button" onClick={cancelEditing}>취소</button>

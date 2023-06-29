@@ -7,6 +7,10 @@ button {
     -moz-user-select: none;     /* Firefox */
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;          /* Standard syntax */
+    background: aliceblue;
+    border: solid 1px #767676;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
 }
 
 ul {
@@ -17,9 +21,13 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #ccccff;
+    background: transparent;
     margin: 1em;
-    padding: 0.5em;
+    padding: 1em;
+    border: solid gold 3px;
+    border-radius: 1em;
+
+
 }
 
 .diary-date {
@@ -33,22 +41,24 @@ ul {
 .diary-action {
     flex: 0.5;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    
 
 }
 
 .input-section {
-    border: gold 300px;
-
+    border: solid gold 3px;
+    padding: 1em 2em;
+    border-radius: 1em;
 }
 
 .list-section {
-    background: lightsalmon;
     width: 80vw;
 }
 
 .edit-form {
     display: flex;
     width: 100%;
+    justify-content: space-between;
 }
 
