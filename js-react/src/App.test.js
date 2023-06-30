@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe("Diary app", () => {
-  test('creates and adds a new diary', () => {
+  test('한 줄 일기 생성 및 읽기', () => {
     render(<App />);
 
     const dateInput = screen.getByPlaceholderText('Enter date');
@@ -19,4 +19,15 @@ describe("Diary app", () => {
     expect(screen.getByText('2023-06-27')).toBeInTheDocument();
     expect(screen.getByText('New diary entry')).toBeInTheDocument();
   });
+
+  test('한 줄 일기 삭제', () => {
+    render(<App />);
+
+  });
+
+  test('한 줄 일기 수정', () => {
+    render(<App />);
+
+  });
+
 });
