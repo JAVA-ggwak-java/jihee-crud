@@ -1,5 +1,6 @@
 import './App.css';
 import React, {useState, useEffect, useRef} from 'react';
+import {Draggable} from "react-beautiful-dnd";
 
 function App() {
     const [diaries, setDiaries] = useState([]);
@@ -126,7 +127,6 @@ function App() {
                     <div className={`snackbar edit ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
                 {showSnackbar === 'error' &&
                     <div className={`snackbar error ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
-
             </div>
             <div className="list-section">
                 {diaries.map(diary => (
