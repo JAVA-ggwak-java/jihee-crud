@@ -113,7 +113,7 @@ function App() {
     return (
         <div className="App">
             <div>
-                <h1>오늘의 한 마디</h1>
+                <h1>오늘의 일기</h1>
             </div>
             <div className="input-section">
                 <form className="input-form" onSubmit={handleFormSubmit}>
