@@ -1,6 +1,5 @@
 import './App.css';
 import React, {useState, useEffect, useRef} from 'react';
-import {Draggable} from "react-beautiful-dnd";
 
 function App() {
     const [diaries, setDiaries] = useState([]);
@@ -111,33 +110,33 @@ function App() {
 
 
     return (
-        <div className="App">
+        <div className="App bg-blue-100 min-h-screen flex flex-col justify-center items-center space-y-5">
             <div>
-                <h1>오늘의 일기</h1>
+                <h1 className="text-4xl text-blue-500">오늘의 일기</h1>
             </div>
-            <div className="input-section">
+            <div className="input-section border-solid border-2 border-sky-400 py-4 px-8 rounded-2xl">
                 <form className="input-form" onSubmit={handleFormSubmit}>
                     <input placeholder={'Enter date'} type="date" value={dateInput} onChange={handleDateChange}/>
                     <input placeholder={'Enter text'} type="text" value={textInput} onChange={handleTextChange}/>
                     <button type="submit">완료</button>
                 </form>
                 {showSnackbar === 'success' &&
-                    <div className={`snackbar success ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
+                    <div className={`bg-green-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
                 {showSnackbar === 'edit' &&
-                    <div className={`snackbar edit ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
+                    <div className={`bg-blue-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
                 {showSnackbar === 'error' &&
-                    <div className={`snackbar error ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+                    <div className={`bg-red-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
             </div>
-            <div className="list-section">
+            <div className="list-section w-9/12">
                 {diaries.map(diary => (
-                    <div key={diary.id} className="diary-item">
+                    <div key={diary.id} className="diary-item bg-transparent border-solid border-2 border-sky-300 m-4 py-4 px-8 rounded-2xl justify-between">
                         {editingDiaryId === diary.id ? (
-                            <form className="edit-form" onSubmit={handleEditFormSubmit}>
+                            <form className="edit-form w-full justify-between" onSubmit={handleEditFormSubmit}>
                                 <div>
                                 <input type="date" value={editDateInput} onChange={handleEditDateChange}/>
                                 <input type="text" value={editTextInput} onChange={handleEditTextChange}/>
                                 </div>
-                                <div className="diary-action">
+                                <div className="diary-action justify-end">
                                     <button type="submit">저장</button>
                                     <button type="button" onClick={cancelEditing}>취소</button>
                                 </div>

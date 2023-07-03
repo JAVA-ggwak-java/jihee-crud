@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    gap: 1.25em;
-}
-
 form {
     display: flex;
     gap: 0.625em;
@@ -18,10 +9,6 @@ form {
 
 input {
     margin-right: 0.625em;
-}
-
-.diary-list {
-    list-style-type: none;
 }
 
 .snackbar {
@@ -51,18 +38,3 @@ input {
     visibility: visible;
 }
 
-.snackbar.success {
-    /* 성공 Snackbar 스타일 */
-    background-color: rgba(0, 200, 0, 0.7);
-}
-
-.snackbar.edit {
-    /* 정보 Snackbar 스타일 */
-    background-color: rgba(100, 100, 255, 0.7);
-}
-
-
-.snackbar.error {
-    /* 실패 Snackbar 스타일 */
-    background-color: rgba(255, 0, 0, 0.7);
-}

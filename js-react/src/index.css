@@ -1,6 +1,3 @@
-body {
-    background: aliceblue;
-}
 
 button {
     -webkit-user-select: none;  /* Chrome, Safari, Opera */
@@ -13,21 +10,9 @@ button {
     padding: 0.25em 0.5em;
 }
 
-ul {
-    list-style-type: none;
-}
-
 .diary-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: transparent;
-    margin: 1em;
-    padding: 1em;
-    border: solid gold 3px;
-    border-radius: 1em;
-
-
 }
 
 .diary-date {
@@ -41,24 +26,9 @@ ul {
 .diary-action {
     flex: 0.5;
     display: flex;
-    justify-content: flex-end;
-    
-
-}
-
-.input-section {
-    border: solid gold 3px;
-    padding: 1em 2em;
-    border-radius: 1em;
-}
-
-.list-section {
-    width: 80vw;
 }
 
 .edit-form {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
 }
 
