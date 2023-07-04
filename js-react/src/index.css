@@ -4,10 +4,6 @@ button {
     -moz-user-select: none;     /* Firefox */
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;          /* Standard syntax */
-    background: aliceblue;
-    border: solid 1px #767676;
-    border-radius: 0.25em;
-    padding: 0.25em 0.5em;
 }
 
 .diary-item {
@@ -16,7 +12,7 @@ button {
 }
 
 .diary-date {
-    flex: 0.5;
+    flex: 1;
 }
 
 .diary-text {
@@ -24,7 +20,7 @@ button {
 }
 
 .diary-action {
-    flex: 0.5;
+    flex: 1;
     display: flex;
 }
 
