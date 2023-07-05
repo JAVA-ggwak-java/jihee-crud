@@ -110,7 +110,7 @@ function App() {
 
 
     return (
-        <div className="App bg-blue-100 min-h-screen flex flex-col justify-center items-center space-y-5">
+        <main className="App bg-blue-100 min-h-screen flex flex-col justify-center items-center space-y-5">
             <div>
                 <h1 className="text-4xl text-blue-600">오늘의 일기</h1>
             </div>
@@ -152,7 +152,7 @@ function App() {
                     </div>
                 ))}
             </div>
-        </div>
+        </main>
     );
 }
 
