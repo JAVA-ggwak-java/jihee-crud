@@ -1,15 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-form {
-    display: flex;
-    gap: 0.625em;
-}
-
-input {
-    margin-right: 0.625em;
-}
+/* for App.js */
 
 .snackbar {
     position: fixed;
