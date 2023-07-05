@@ -22,7 +22,7 @@
 1. `npx create-react-app ./ `  
 2. `npm install -D tailwindcss`
    `npx tailwindcss init`  
-3. tailwind.config.js content 에 `"./src/**/*.{js,jsx,ts,tsx}",` 추가    
+3. tailwind.config.js content 에 `"./src/**/*.{js,jsx,ts,tsx}",` 추가    
 4. `npm install --save-dev @testing-library/react`  
   `npm install jest --save-dev`   
 5. `npm install react-beautiful-dnd --save`
