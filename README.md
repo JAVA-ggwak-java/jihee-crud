@@ -1,4 +1,4 @@
-# jihee-crud
+# jihee-crud-js
 냅다 CRUD 를 활용해보겠습니다.
 
 ## 프로젝트 진행 상황
