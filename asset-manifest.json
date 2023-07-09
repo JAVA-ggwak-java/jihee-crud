@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/jihee-crud-js/static/css/main.815b8029.css",
+    "main.js": "/jihee-crud-js/static/js/main.9673b875.js",
+    "static/js/787.e548249d.chunk.js": "/jihee-crud-js/static/js/787.e548249d.chunk.js",
+    "index.html": "/jihee-crud-js/index.html",
+    "main.815b8029.css.map": "/jihee-crud-js/static/css/main.815b8029.css.map",
+    "main.9673b875.js.map": "/jihee-crud-js/static/js/main.9673b875.js.map",
+    "787.e548249d.chunk.js.map": "/jihee-crud-js/static/js/787.e548249d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.815b8029.css",
+    "static/js/main.9673b875.js"
+  ]
+}
