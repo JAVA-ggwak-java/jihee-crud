@@ -1,7 +1,8 @@
-import './App.css';
+import './App.css'; // 필요없음
 import React, {useState, useEffect, useRef} from 'react';
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import Snackbar from './Snackbar.js';
 
 function App() {
     const [diaries, setDiaries] = useState([]);
@@ -68,19 +69,26 @@ function App() {
         if (snackbarTimeoutId.current) {
             clearTimeout(snackbarTimeoutId.current);
         }
-        setShowSnackbar('edit');
+        setMessage('edit');  // 'edit' 메시지 설정
+        setShowSnackbar(true);
         snackbarTimeoutId.current = setTimeout(() => {
-            setShowSnackbar('');
+            setShowSnackbar(false);
         }, 2500);
     };
 
 
     const deleteDiary = id => {
         setDiaries(diaries.filter(diary => diary.id !== id));
+        setMessage('delete');  // 'delete' 메시지 설정
+        setShowSnackbar(true);
+        snackbarTimeoutId.current = setTimeout(() => {
+            setShowSnackbar(false);
+        }, 2500);
     };
 
-    const [showSnackbar, setShowSnackbar] = useState('');
+    const [showSnackbar, setShowSnackbar] = useState(false);
     const snackbarTimeoutId = useRef(null);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         return () => {
@@ -99,15 +107,17 @@ function App() {
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
             }
-            setShowSnackbar('success');
+            setMessage('success');  // 'success' 메시지 설정
+            setShowSnackbar(true);
         } else {
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
             }
-            setShowSnackbar('error');
+            setMessage('error');  // 'error' 메시지 설정
+            setShowSnackbar(true);
         }
         snackbarTimeoutId.current = setTimeout(() => {
-            setShowSnackbar('');
+            setShowSnackbar(false);
         }, 2500);
     };
 
@@ -152,8 +162,6 @@ function App() {
         );
     };
 
-
-
     return (
         <main className="App bg-blue-100 h-screen flex flex-col items-center space-y-5 overflow-auto scrollbar-hide py-10">
             <div>
@@ -168,12 +176,7 @@ function App() {
                     <button className="py-2 px-4 bg-blue-200 border-2 border-blue-300 rounded-md hover:bg-blue-400 hover:border-blue-500 hover:text-white" type="submit">완료
                     </button>
                 </form>
-                {showSnackbar === 'success' &&
-                    <div className={`bg-green-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
-                {showSnackbar === 'edit' &&
-                    <div className={`bg-blue-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
-                {showSnackbar === 'error' &&
-                    <div className={`bg-red-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+                {showSnackbar && <Snackbar showSnackbar={showSnackbar} message={message} />}
             </div>
             <div className="list-section w-9/12">
                 {diaries.map(diary => (
