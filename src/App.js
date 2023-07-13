@@ -16,7 +16,7 @@ function App() {
 
     const addDiary = (date, text) => {
         const newDiary = createDiary(date, text);
-        setDiaries([...diaries, newDiary]);
+        setDiaries([newDiary, ...diaries]);
     };
 
     const today = new Date(); // YYYY-MM-DD 형식을 padStart() 로 맞추자!
@@ -205,9 +205,9 @@ function App() {
                                     <p>{diary.date}</p>
                                 </div>
                                 <div className="diary-text flex flex-col">
-                                    <p className="my-1">{diary.text}</p>
+                                    <p className="my-1 text-xl">{diary.text}</p>
                                     <div className="relative" ref={emojiButtonRef}>
-                                        <button className={"px-2 text-xl border-2 bg-white border-blue-300 rounded-full hover:bg-blue-300 hover:border-blue-400 hover:animate-spin hover:text-white"}
+                                        <button className={"px-2 text-md border-2 bg-white border-blue-300 rounded-full hover:bg-blue-300 hover:border-blue-400 hover:animate-spin hover:text-white"}
                                                 onClick={() => toggleEmojiPicker(diary.id)}
                                                 onDoubleClick={() => resetEmoji(diary.id)}
                                         >
