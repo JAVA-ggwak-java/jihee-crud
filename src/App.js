@@ -68,9 +68,12 @@ function App() {
         updateDiary(editingDiaryId, editDateInput, editTextInput);
         if (snackbarTimeoutId.current) {
             clearTimeout(snackbarTimeoutId.current);
+            setShowSnackbar(false);
         }
-        setMessage('edit');  // 'edit' 메시지 설정
-        setShowSnackbar(true);
+        setTimeout(() => {
+            setMessage('edit');  // 'success' 메시지 설정
+            setShowSnackbar(true);
+        }, 50);
         snackbarTimeoutId.current = setTimeout(() => {
             setShowSnackbar(false);
         }, 2500);
@@ -79,8 +82,14 @@ function App() {
 
     const deleteDiary = id => {
         setDiaries(diaries.filter(diary => diary.id !== id));
-        setMessage('delete');  // 'delete' 메시지 설정
-        setShowSnackbar(true);
+        if (snackbarTimeoutId.current) {
+            clearTimeout(snackbarTimeoutId.current);
+            setShowSnackbar(false);
+        }
+        setTimeout(() => {
+            setMessage('delete');  // 'success' 메시지 설정
+            setShowSnackbar(true);
+        }, 50);
         snackbarTimeoutId.current = setTimeout(() => {
             setShowSnackbar(false);
         }, 2500);
@@ -106,15 +115,21 @@ function App() {
             setTextInput('');
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
+                setShowSnackbar(false);
             }
-            setMessage('success');  // 'success' 메시지 설정
-            setShowSnackbar(true);
+            setTimeout(() => {
+                setMessage('success');  // 'success' 메시지 설정
+                setShowSnackbar(true);
+            }, 50);
         } else {
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
+                setShowSnackbar(false);
             }
-            setMessage('error');  // 'error' 메시지 설정
-            setShowSnackbar(true);
+            setTimeout(() => {
+                setMessage('error');  // 'success' 메시지 설정
+                setShowSnackbar(true);
+            }, 50);
         }
         snackbarTimeoutId.current = setTimeout(() => {
             setShowSnackbar(false);
