@@ -178,7 +178,8 @@ function App() {
     };
 
     return (
-        <main className="App bg-blue-100 h-screen flex flex-col items-center space-y-5 overflow-auto scrollbar-hide py-10">
+        <main
+            className="App bg-blue-100 h-screen flex flex-col items-center space-y-5 overflow-auto scrollbar-hide py-10">
             <div>
                 <h1 className="text-4xl text-blue-600">오늘의 일기</h1>
             </div>
@@ -189,7 +190,7 @@ function App() {
                       handleTextChange={handleTextChange}
                       handleFormSubmit={handleFormSubmit}
                 />
-                {showSnackbar && <Snackbar showSnackbar={showSnackbar} message={message} />}
+                {showSnackbar && <Snackbar showSnackbar={showSnackbar} message={message}/>}
             </div>
             <List
                 diaries={diaries}
