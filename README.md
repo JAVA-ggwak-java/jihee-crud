@@ -2,7 +2,7 @@
 냅다 CRUD 를 활용해보겠습니다.
 
 ## 프로젝트 진행 상황
-![Progress](https://progress-bar.dev/50/?title=Updateㅤ&width=400&color=F7DF1B)
+![Progress](https://progress-bar.dev/90/?title=Updateㅤ&width=400&color=F7DF1B)
 * 레퍼런스 선정
 * 레이아웃 분석
 * 구현
