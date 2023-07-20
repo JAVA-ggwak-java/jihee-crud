@@ -71,7 +71,7 @@ function App() {
             setShowSnackbar(false);
         }
         setTimeout(() => {
-            setMessage('edit');  // 'success' 메시지 설정
+            setMessage('edit');
             setShowSnackbar(true);
         }, 50);
         snackbarTimeoutId.current = setTimeout(() => {
@@ -87,7 +87,7 @@ function App() {
             setShowSnackbar(false);
         }
         setTimeout(() => {
-            setMessage('delete');  // 'success' 메시지 설정
+            setMessage('delete');
             setShowSnackbar(true);
         }, 50);
         snackbarTimeoutId.current = setTimeout(() => {
@@ -137,24 +137,6 @@ function App() {
     };
 
     const [showEmojiPickerId, setShowEmojiPickerId] = useState(null);
-    const emojiPickerRef = useRef();
-    const emojiButtonRef = useRef();
-
-    useEffect(() => {
-        const handleClickOutside = event => {
-            if (
-                emojiPickerRef.current && !emojiPickerRef.current.contains(event.target) &&
-                emojiButtonRef.current && !emojiButtonRef.current.contains(event.target)
-            ) {
-                setShowEmojiPickerId(null);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
 
     const toggleEmojiPicker = id => {
         setShowEmojiPickerId(prevId => (prevId === id ? null : id));
@@ -203,8 +185,7 @@ function App() {
                 cancelEditing={cancelEditing}
                 toggleEmojiPicker={toggleEmojiPicker}
                 showEmojiPickerId={showEmojiPickerId}
-                emojiPickerRef={emojiPickerRef}
-                emojiButtonRef={emojiButtonRef}
+                setShowEmojiPickerId={setShowEmojiPickerId}
                 handleEmojiSelect={handleEmojiSelect}
                 resetEmoji={resetEmoji}
                 editDiary={editDiary}
