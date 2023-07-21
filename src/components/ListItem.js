@@ -26,7 +26,7 @@ function ListItem({ diary, editingDiaryId, editDateInput, handleEditDateChange, 
 
 
     return (
-        <div className="diary-item bg-transparent border-solid border-2 border-sky-300 my-4 md:m-6 py-4 px-4 rounded-2xl">
+        <div className="diary-item bg-transparent flex flex-col md:flex-row border-solid border-2 border-sky-300 my-4 md:m-6 py-4 px-4 rounded-2xl">
             {editingDiaryId === diary.id ? (
                 <>
                     <div className="diary-date"><input
@@ -51,7 +51,7 @@ function ListItem({ diary, editingDiaryId, editDateInput, handleEditDateChange, 
                     </div>
                     <div className="diary-text flex flex-col">
                         <p className="my-1 text-xl md:text-2xl">{diary.text}</p>
-                        <div className="relative">
+                        <div className="relative items-center">
                             <button className={"px-2 text-md border-2 bg-white border-blue-300 rounded-full hover:bg-blue-300 hover:border-blue-400 hover:animate-spin hover:text-white"}
                                     onClick={() => toggleEmojiPicker(diary.id)}
                                     onDoubleClick={() => resetEmoji(diary.id)}
