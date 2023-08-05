@@ -1,7 +1,8 @@
-import './App.css';
+import './App.css'; // 필요없음
 import React, {useState, useEffect, useRef} from 'react';
-import data from '@emoji-mart/data'
-import Picker from '@emoji-mart/react'
+import Snackbar from './components/Snackbar.js';
+import Form from './components/Form';
+import List from './components/List';
 
 function App() {
     const [diaries, setDiaries] = useState([]);
@@ -15,7 +16,7 @@ function App() {
 
     const addDiary = (date, text) => {
         const newDiary = createDiary(date, text);
-        setDiaries([...diaries, newDiary]);
+        setDiaries([newDiary, ...diaries]);
     };
 
     const today = new Date(); // YYYY-MM-DD 형식을 padStart() 로 맞추자!
@@ -67,20 +68,36 @@ function App() {
         updateDiary(editingDiaryId, editDateInput, editTextInput);
         if (snackbarTimeoutId.current) {
             clearTimeout(snackbarTimeoutId.current);
+            setShowSnackbar(false);
         }
-        setShowSnackbar('edit');
+        setTimeout(() => {
+            setMessage('edit');
+            setShowSnackbar(true);
+        }, 50);
         snackbarTimeoutId.current = setTimeout(() => {
-            setShowSnackbar('');
+            setShowSnackbar(false);
         }, 2500);
     };
 
 
     const deleteDiary = id => {
         setDiaries(diaries.filter(diary => diary.id !== id));
+        if (snackbarTimeoutId.current) {
+            clearTimeout(snackbarTimeoutId.current);
+            setShowSnackbar(false);
+        }
+        setTimeout(() => {
+            setMessage('delete');
+            setShowSnackbar(true);
+        }, 50);
+        snackbarTimeoutId.current = setTimeout(() => {
+            setShowSnackbar(false);
+        }, 2500);
     };
 
-    const [showSnackbar, setShowSnackbar] = useState('');
+    const [showSnackbar, setShowSnackbar] = useState(false);
     const snackbarTimeoutId = useRef(null);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         return () => {
@@ -98,38 +115,28 @@ function App() {
             setTextInput('');
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
+                setShowSnackbar(false);
             }
-            setShowSnackbar('success');
+            setTimeout(() => {
+                setMessage('success');  // 'success' 메시지 설정
+                setShowSnackbar(true);
+            }, 50);
         } else {
             if (snackbarTimeoutId.current) {
                 clearTimeout(snackbarTimeoutId.current);
+                setShowSnackbar(false);
             }
-            setShowSnackbar('error');
+            setTimeout(() => {
+                setMessage('error');  // 'success' 메시지 설정
+                setShowSnackbar(true);
+            }, 50);
         }
         snackbarTimeoutId.current = setTimeout(() => {
-            setShowSnackbar('');
+            setShowSnackbar(false);
         }, 2500);
     };
 
     const [showEmojiPickerId, setShowEmojiPickerId] = useState(null);
-    const emojiPickerRef = useRef();
-    const emojiButtonRef = useRef();
-
-    useEffect(() => {
-        const handleClickOutside = event => {
-            if (
-                emojiPickerRef.current && !emojiPickerRef.current.contains(event.target) &&
-                emojiButtonRef.current && !emojiButtonRef.current.contains(event.target)
-            ) {
-                setShowEmojiPickerId(null);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
 
     const toggleEmojiPicker = id => {
         setShowEmojiPickerId(prevId => (prevId === id ? null : id));
@@ -152,84 +159,38 @@ function App() {
         );
     };
 
-
-
     return (
-        <main className="App bg-blue-100 h-screen flex flex-col items-center space-y-5 overflow-auto scrollbar-hide py-10">
+        <main
+            className="App bg-blue-100 h-screen flex flex-col items-center space-y-5 overflow-auto scrollbar-hide py-10">
             <div>
-                <h1 className="text-4xl text-blue-600">오늘의 할 일</h1>
+                <h1 className="text-4xl text-blue-600">오늘의 일기</h1>
             </div>
             <div className="input-section border-solid border-2 border-sky-400 py-4 px-8 rounded-2xl">
-                <form className="input-form" onSubmit={handleFormSubmit}>
-                    <input className="py-2 px-4 border-2 border-blue-400 rounded-md outline-none focus:border-blue-600" placeholder={'Enter date'}
-                           type="date" value={dateInput} onChange={handleDateChange}/>
-                    <input className="py-2 px-4 border-2 border-blue-400 rounded-md outline-none focus:border-blue-600" placeholder={'Enter text'}
-                           type="text" value={textInput} onChange={handleTextChange}/>
-                    <button className="py-2 px-4 bg-blue-200 border-2 border-blue-300 rounded-md hover:bg-blue-400 hover:border-blue-500 hover:text-white" type="submit">완료
-                    </button>
-                </form>
-                {showSnackbar === 'success' &&
-                    <div className={`bg-green-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>항목을 추가했어요!</div>}
-                {showSnackbar === 'edit' &&
-                    <div className={`bg-blue-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>항목을 수정했어요!</div>}
-                {showSnackbar === 'error' &&
-                    <div className={`bg-red-500/75 snackbar ${showSnackbar ? 'show' : ''}`}>값을 입력해주세요!</div>}
+                <Form dateInput={dateInput}
+                      handleDateChange={handleDateChange}
+                      textInput={textInput}
+                      handleTextChange={handleTextChange}
+                      handleFormSubmit={handleFormSubmit}
+                />
+                {showSnackbar && <Snackbar showSnackbar={showSnackbar} message={message}/>}
             </div>
-            <div className="list-section w-9/12">
-                {diaries.map(diary => (
-                    <div key={diary.id}
-                         className="diary-item bg-transparent border-solid border-2 border-sky-300 m-4 py-4 px-8 rounded-2xl">
-                        {editingDiaryId === diary.id ? (
-                            <>
-                                <div className="diary-date"><input
-                                    className="py-1 px-2 border-2 border-blue-400 rounded-md" type="date"
-                                    value={editDateInput} onChange={handleEditDateChange}/></div>
-                                <div className="diary-text"><input
-                                    className="py-1 px-2 border-2 border-blue-400 rounded-md" type="text"
-                                    value={editTextInput} onChange={handleEditTextChange}/></div>
-                                <div className="diary-action justify-between w-full">
-                                    <button className="py-1 px-2 bg-blue-200 border-2 border-blue-300 rounded-md hover:bg-blue-400 hover:border-blue-500 hover:text-white"
-                                            type="submit" onClick={handleEditFormSubmit}>저장
-                                    </button>
-                                    <button className="py-1 px-2 bg-blue-200 border-2 border-blue-300 rounded-md hover:bg-blue-400 hover:border-blue-500 hover:text-white"
-                                            type="button" onClick={cancelEditing}>취소
-                                    </button>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className="diary-date">
-                                    <p>{diary.date}</p>
-                                </div>
-                                <div className="diary-text flex flex-col">
-                                    <p className="my-1">{diary.text}</p>
-                                    <div className="relative" ref={emojiButtonRef}>
-                                        <button className={"px-2 text-xl border-2 bg-white border-blue-300 rounded-full hover:bg-blue-300 hover:border-blue-400 hover:animate-spin hover:text-white"}
-                                                onClick={() => toggleEmojiPicker(diary.id)}
-                                                onDoubleClick={() => resetEmoji(diary.id)}
-                                        >
-                                            {diary.emoji ? diary.emoji.native : '🫥'}
-                                        </button>
-                                        {showEmojiPickerId === diary.id && (
-                                            <div className="absolute top-full z-10" ref={emojiPickerRef}>
-                                                <Picker data={data} onEmojiSelect={(emoji) => handleEmojiSelect(emoji, diary.id)}/>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="diary-action justify-between w-full">
-                                    <button className="py-1 px-2 border-2 bg-blue-200 border-blue-300 rounded-md hover:bg-blue-400 hover:border-blue-500 hover:text-white"
-                                            onClick={() => editDiary(diary.id)}>수정
-                                    </button>
-                                    <button className="py-1 px-2 border-2 bg-blue-200 border-blue-300 rounded-md hover:bg-blue-400 hover:border-blue-500 hover:text-white"
-                                            onClick={() => deleteDiary(diary.id)}>삭제
-                                    </button>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                ))}
-            </div>
+            <List
+                diaries={diaries}
+                editingDiaryId={editingDiaryId}
+                editDateInput={editDateInput}
+                handleEditDateChange={handleEditDateChange}
+                editTextInput={editTextInput}
+                handleEditTextChange={handleEditTextChange}
+                handleEditFormSubmit={handleEditFormSubmit}
+                cancelEditing={cancelEditing}
+                toggleEmojiPicker={toggleEmojiPicker}
+                showEmojiPickerId={showEmojiPickerId}
+                setShowEmojiPickerId={setShowEmojiPickerId}
+                handleEmojiSelect={handleEmojiSelect}
+                resetEmoji={resetEmoji}
+                editDiary={editDiary}
+                deleteDiary={deleteDiary}
+            />
         </main>
     );
 }

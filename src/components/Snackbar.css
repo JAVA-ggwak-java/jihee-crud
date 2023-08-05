@@ -1,0 +1,26 @@
+.snackbar {
+    position: fixed;
+    right: 1.25em;
+    top: 1.25em;
+    padding: 0.625em;
+    color: white;
+    border-radius: 0.625em;
+    opacity: 0; /* 처음에는 스낵바를 투명하게 합니다. */
+    visibility: hidden; /* 처음에는 스낵바를 보이지 않게 합니다. */
+    transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        right: -12.5em;
+    }
+    to {
+        right: 1.25em;
+    }
+}
+
+.snackbar.show {
+    animation: slideIn 0.3s forwards;
+    opacity: 1;
+    visibility: visible;
+}
